@@ -137,8 +137,8 @@ public class MainActivity extends Activity {
         // dimensions of our preview surface.
         Camera.Parameters parameters = mCamera.getParameters();
         List<Camera.Size> mSupportedPreviewSizes = parameters.getSupportedPreviewSizes();
-        Camera.Size optimalSize = CameraHelper.getOptimalPreviewSize(mSupportedPreviewSizes,
-                mPreview.getWidth(), mPreview.getHeight());
+        // Edit: change the optimal preview size
+        Camera.Size optimalSize = CameraHelper.getOptimalPreviewSize(mSupportedPreviewSizes, 640, 480);
 
         // Use the same size for recording profile.
         CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
@@ -148,6 +148,8 @@ public class MainActivity extends Activity {
         // likewise for the camera object itself.
         parameters.setPreviewSize(profile.videoFrameWidth, profile.videoFrameHeight);
         mCamera.setParameters(parameters);
+        // Edit: change the camera display orientation, and it take effect!
+        // However the output file is still on wrong orientation.
         mCamera.setDisplayOrientation(90);
         try {
                 // Requires API level 11+, For backward compatibility use {@link setPreviewDisplay}
